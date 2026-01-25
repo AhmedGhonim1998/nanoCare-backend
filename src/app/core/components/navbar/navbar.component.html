@@ -1,0 +1,64 @@
+<nav class="w-full bg-white/95 backdrop-blur-xl border-b border-slate-100 fixed top-0 left-0 z-50 transition-all duration-300"
+     [ngClass]="{'bg-white/90': isScrolled}">
+     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-20">
+      
+      <div class="flex-shrink-0">
+        <img src="images/nano_care-removebg-preview.png" 
+             alt="NanoCare" 
+             class="h-24 w-auto object-contain hover:scale-105 transition-transform duration-300 cursor-pointer"
+             routerLink="/">
+      </div>
+
+      <div class="hidden md:flex items-center space-x-10">
+        <a routerLink="/" routerLinkActive="text-blue-600" [routerLinkActiveOptions]="{exact: true}"
+           class="text-xs font-black tracking-widest text-[#001B48] hover:text-blue-600 transition-colors uppercase">Home</a>
+        
+        <a routerLink="/products" routerLinkActive="text-blue-600"
+           class="text-xs font-black tracking-widest text-slate-500 hover:text-[#001B48] transition-colors uppercase">Products</a>
+        
+        <a routerLink="/about" routerLinkActive="text-blue-600"
+           class="text-xs font-black tracking-widest text-slate-500 hover:text-[#001B48] transition-colors uppercase">About Us</a>
+        
+        <a routerLink="/contact" routerLinkActive="text-blue-600"
+           class="text-xs font-black tracking-widest text-slate-500 hover:text-[#001B48] transition-colors uppercase">Contact</a>
+      </div>
+
+      <div class="flex items-center gap-5">
+        <div class="relative cursor-pointer text-[#001B48] hover:scale-110 transition-transform">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 11-8 0v4M5 9h14l1 12H4L5 9z" />
+          </svg>
+          <span class="absolute -top-1 -right-1 bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">1</span>
+        </div>
+        
+        <button routerLink="/checkout" 
+                class="hidden md:block bg-[#001B48] text-white px-7 py-3 rounded-2xl font-black text-xs tracking-widest hover:bg-blue-900 transition-all shadow-lg active:scale-95 uppercase">
+          Shop Now
+        </button>
+
+        <button (click)="toggleMenu($event)" class="md:hidden p-2 text-[#001B48]">
+          <svg *ngIf="!isMenuOpen" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+          <svg *ngIf="isMenuOpen" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isMenuOpen" 
+       class="md:hidden fixed top-20 left-0 w-full bg-white/95 backdrop-blur-xl border-b border-slate-100 shadow-2xl z-50 animate-in fade-in slide-in-from-top-5 duration-300">
+    <div class="flex flex-col p-8 space-y-6 text-center">
+      <a routerLink="/" (click)="isMenuOpen=false" class="text-sm font-black tracking-widest text-[#001B48] uppercase">Home</a>
+      <a routerLink="/products" (click)="isMenuOpen=false" class="text-sm font-black tracking-widest text-slate-500 uppercase">Products</a>
+      <a routerLink="/about" (click)="isMenuOpen=false" class="text-sm font-black tracking-widest text-slate-500 uppercase">About Us</a>
+      <a routerLink="/contact" (click)="isMenuOpen=false" class="text-sm font-black tracking-widest text-slate-500 uppercase">Contact</a>
+      <button routerLink="/checkout" (click)="isMenuOpen=false" class="w-full bg-[#001B48] text-white py-5 rounded-[2rem] font-black tracking-widest uppercase">
+        Shop Now
+      </button>
+    </div>
+  </div>
+</nav>

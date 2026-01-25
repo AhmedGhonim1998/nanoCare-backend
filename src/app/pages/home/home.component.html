@@ -1,0 +1,382 @@
+<section class="relative min-h-screen pt-32 pb-20 overflow-hidden bg-white">
+  <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-50 rounded-full blur-3xl opacity-50 -mr-64 -mt-32"></div>
+  <div class="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-100 rounded-full blur-3xl opacity-30 -ml-32 -mb-16"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      
+      <div class="space-y-8 text-center lg:text-left">
+        <div>
+          <span class="inline-block px-6 py-2 rounded-full bg-blue-50 text-blue-600 text-[10px] font-black tracking-[0.2em] uppercase mb-6 border border-blue-100 shadow-sm">
+             Liposomal Technology Inside
+          </span>
+          <h1 class="text-5xl md:text-7xl font-black text-[#001B48] leading-[1.1] tracking-tighter">
+            Unlock Your <br> 
+            <span class="text-blue-600">Peak Performance</span>
+          </h1>
+          <p class="text-lg text-slate-500 mt-6 leading-relaxed max-w-lg mx-auto lg:mx-0">
+            We introduce a new generation of supplements using Liposomal technology that ensures up to 
+            <span class="font-bold text-[#001B48]">34x higher absorption</span>. 
+            If we take care of your cells, we can take care of your life.
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+          <button routerLink="/products" class="w-full sm:w-auto px-10 py-5 bg-[#001B48] text-white rounded-full font-black tracking-widest hover:bg-blue-900 transition-all shadow-xl shadow-blue-900/10 active:scale-95 text-xs uppercase">
+            Explore Products
+          </button>
+          <button class="w-full sm:w-auto px-10 py-5 border-2 border-slate-100 text-[#001B48] rounded-full font-bold hover:bg-slate-50 transition-all text-xs uppercase">
+            Learn Science
+          </button>
+        </div>
+      </div>
+
+      <div class="relative w-full max-w-[480px] mx-auto group">
+        
+        <div class="absolute -top-6 -right-2 md:-right-6 bg-white p-6 rounded-[2.5rem] shadow-2xl z-30 border border-slate-50 animate-bounce transition-transform">
+          <div class="text-center">
+            <span class="block text-3xl font-black text-blue-600 leading-none">10g</span>
+            <span class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Pure Collagen</span>
+          </div>
+        </div>
+
+        <div class="relative bg-gradient-to-b from-blue-50/80 to-transparent rounded-[5rem] p-8 md:p-12 border border-white overflow-hidden shadow-sm">
+  
+  <div class="relative h-[400px] overflow-hidden">
+    <div class="flex transition-transform duration-700 ease-in-out" 
+         [style.transform]="'translateX(-' + (currentIndex * 100) + '%)'">
+      <div *ngFor="let image of heroImages; let i = index" 
+           class="flex-shrink-0 w-full flex items-center justify-center">
+        <img [src]="image" 
+             alt="NanoCare Product {{i + 1}}" 
+             class="max-w-full max-h-full object-contain rounded-t-3xl rounded-b-3xl shadow-lg">
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Controls -->
+  <div class="absolute top-1/2 left-4 transform -translate-y-1/2">
+    <button (click)="prevSlide()" 
+            class="bg-white/80 hover:bg-white text-[#001B48] p-3 rounded-full shadow-lg transition-all hover:scale-110">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+      </svg>
+    </button>
+  </div>
+
+  <div class="absolute top-1/2 right-4 transform -translate-y-1/2">
+    <button (click)="nextSlide()" 
+            class="bg-white/80 hover:bg-white text-[#001B48] p-3 rounded-full shadow-lg transition-all hover:scale-110">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Indicators -->
+  <div class="absolute bottom-6 left-0 right-0 flex justify-center gap-2">
+    <button *ngFor="let img of heroImages; let i = index" 
+            (click)="goToSlide(i)"
+            class="h-1.5 transition-all duration-500 rounded-full"
+            [style.width]="i === currentIndex ? '40px' : '8px'"
+            [style.backgroundColor]="i === currentIndex ? '#2563eb' : 'rgba(191, 219, 254, 0.5)'">
+    </button>
+  </div>
+
+  <!-- Auto-play Toggle -->
+  <div class="absolute top-4 right-4">
+    <button (click)="toggleAutoPlay()" 
+            class="bg-white/80 hover:bg-white text-[#001B48] p-2 rounded-full shadow-lg transition-all hover:scale-110"
+            [title]="isAutoPlaying ? 'Pause auto-play' : 'Start auto-play'">
+      <svg *ngIf="isAutoPlaying" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+      <svg *ngIf="!isAutoPlaying" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1.586a1 1 0 01.707.293l.707.707A1 1 0 0012.414 11H15m-3-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+    </button>
+  </div>
+</div>
+        
+        <div class="mt-10 flex justify-center gap-8 bg-white/60 backdrop-blur-md p-6 rounded-full border border-slate-100 shadow-sm">
+            <div class="text-center">
+                <span class="block text-xl font-black text-[#001B48]">Dual Source</span>
+                <span class="text-[10px] text-slate-400 uppercase font-black tracking-widest">Marine & Bovine</span>
+            </div>
+            <div class="w-px h-10 bg-slate-200"></div>
+            <div class="text-center">
+                <span class="block text-xl font-black text-emerald-500">Zero Sugar</span>
+                <span class="text-[10px] text-slate-400 uppercase font-black tracking-widest">Stevia Sweetened</span>
+            </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="py-24 bg-slate-50/50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="text-center max-w-3xl mx-auto mb-20">
+      <h2 class="text-xs font-black tracking-[0.3em] text-blue-600 uppercase mb-4">The Science of Absorption</h2>
+      <h3 class="text-4xl md:text-5xl font-black text-[#001B48] leading-tight">
+        Why Liposomal Technology <br> is a Game Changer
+      </h3>
+      <p class="text-slate-500 mt-6 text-lg">
+        Traditional supplements are often destroyed by stomach acid before they even reach your cells. Our Liposomal delivery system changes everything.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+      
+      <div class="bg-white p-10 rounded-[3rem] border border-slate-100 flex flex-col justify-between group hover:border-red-100 transition-all duration-500">
+        <div>
+          <div class="w-14 h-14 bg-red-50 text-red-500 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </div>
+          <h4 class="text-2xl font-black text-[#001B48] mb-4">Traditional Supplements</h4>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3 text-slate-500 font-medium">
+              <span class="w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></span>
+              Low Bioavailability (Poorly absorbed)
+            </li>
+            <li class="flex items-start gap-3 text-slate-500 font-medium">
+              <span class="w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></span>
+              Destroyed by harsh stomach acids
+            </li>
+            <li class="flex items-start gap-3 text-slate-500 font-medium">
+              <span class="w-1.5 h-1.5 rounded-full bg-red-400 mt-2"></span>
+              Can cause digestive discomfort
+            </li>
+          </ul>
+        </div>
+        <div class="mt-12 pt-8 border-t border-slate-50">
+           <span class="text-sm font-bold text-slate-400 uppercase tracking-widest italic leading-none text-center block">Efficiency Rate: ~10% - 20%</span>
+        </div>
+      </div>
+
+      <div class="bg-[#001B48] p-10 rounded-[3rem] border border-blue-900 flex flex-col justify-between relative overflow-hidden group">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-blue-600/20 blur-[80px] -mr-32 -mt-32"></div>
+        
+        <div class="relative z-10">
+          <div class="w-14 h-14 bg-blue-500 text-white rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+          </div>
+          <h4 class="text-2xl font-black text-white mb-4 uppercase tracking-tight">NanoCare Liposomal</h4>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3 text-blue-100 font-medium">
+              <span class="w-2 h-2 rounded-full bg-blue-400 mt-2"></span>
+              Up to <span class="text-white font-bold underline decoration-blue-400">34x Higher Absorption</span>
+            </li>
+            <li class="flex items-start gap-3 text-blue-100 font-medium">
+              <span class="w-2 h-2 rounded-full bg-blue-400 mt-2"></span>
+              Protected delivery to your bloodstream
+            </li>
+            <li class="flex items-start gap-3 text-blue-100 font-medium">
+              <span class="w-2 h-2 rounded-full bg-blue-400 mt-2"></span>
+              Gentle on the stomach & highly effective
+            </li>
+          </ul>
+        </div>
+
+        <div class="mt-12 pt-8 border-t border-blue-800/50 relative z-10">
+           <span class="text-sm font-bold text-blue-300 uppercase tracking-widest text-center block leading-none">Efficiency Rate: Up to 98%</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="mt-20 p-8 bg-white border border-slate-100 rounded-[2.5rem] text-center max-w-4xl mx-auto">
+        <p class="text-xl font-bold text-[#001B48] leading-relaxed">
+            "Liposomes are microscopic protective bubbles that act as a shield for vitamins, <br class="hidden md:block">
+            allowing them to fuse directly with your cell membranes for <span class="text-blue-600 underline decoration-blue-200">maximum impact</span>."
+        </p>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="py-24 bg-white relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+      
+      <div class="order-2 lg:order-1 space-y-10">
+        <div>
+          <h2 class="text-xs font-black tracking-[0.3em] text-blue-600 uppercase mb-4">Multi-Source Formula</h2>
+          <h3 class="text-4xl font-black text-[#001B48] leading-tight">
+            One Formula, <br> Double the Impact.
+          </h3>
+          <p class="text-slate-500 mt-4 text-lg max-w-md">
+            We combined the best of both worlds. A synergistic blend designed for those who refuse to settle for basic nutrition.
+          </p>
+        </div>
+
+        <div class="space-y-6">
+          <div class="p-6 rounded-[2rem] bg-blue-50/50 border border-blue-100 flex gap-6 hover:bg-white hover:shadow-xl transition-all duration-500 group">
+            <div class="flex-shrink-0 w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-blue-600 shadow-sm group-hover:bg-blue-600 group-hover:text-white transition-colors">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+            </div>
+            <div>
+              <h4 class="font-black text-[#001B48] uppercase tracking-tighter">Marine Collagen (Type I)</h4>
+              <p class="text-sm text-slate-500 leading-relaxed mt-1">Sourced from fish scales for high bioavailability. Focuses on skin elasticity, hydration, and hair strength.</p>
+            </div>
+          </div>
+
+          <div class="p-6 rounded-[2rem] bg-slate-50 border border-slate-100 flex gap-6 hover:bg-white hover:shadow-xl transition-all duration-500 group">
+            <div class="flex-shrink-0 w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-[#001B48] shadow-sm group-hover:bg-[#001B48] group-hover:text-white transition-colors">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+            </div>
+            <div>
+              <h4 class="font-black text-[#001B48] uppercase tracking-tighter">Bovine Collagen (Type I & III)</h4>
+              <p class="text-sm text-slate-500 leading-relaxed mt-1">Provides essential amino acids for joint integrity, bone matrix, and connective tissue support.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-1 lg:order-2">
+        <div class="relative p-12 bg-[#001B48] rounded-[4rem] text-white overflow-hidden shadow-2xl">
+          <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/20 blur-[80px] -mr-32 -mt-32"></div>
+          
+          <div class="relative z-10 space-y-12">
+            <div class="flex items-center gap-6">
+              <span class="text-6xl font-black text-blue-400 leading-none">10g</span>
+              <p class="text-sm font-bold uppercase tracking-[0.2em] leading-tight">Pure Active Collagen <br> per Serving</p>
+            </div>
+            
+            <hr class="border-blue-900">
+
+            <div class="grid grid-cols-2 gap-8">
+              <div>
+                <span class="block text-2xl font-black mb-1 italic">0%</span>
+                <span class="text-xs text-blue-300 uppercase font-black tracking-widest">Added Sugar</span>
+              </div>
+              <div>
+                <span class="block text-2xl font-black mb-1 italic">100%</span>
+                <span class="text-xs text-blue-300 uppercase font-black tracking-widest">Hydrolyzed</span>
+              </div>
+            </div>
+
+            <p class="text-blue-100 text-sm leading-relaxed italic opacity-80">
+              "Our formula is sweetened with Stevia, making it perfect for keto, diabetic, or low-calorie lifestyles."
+            </p>
+            
+            <button class="w-full py-5 bg-blue-600 rounded-2xl font-black uppercase tracking-widest hover:bg-blue-500 transition-colors shadow-xl shadow-blue-900/50">
+              View Product Details
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="py-24 bg-slate-50 relative overflow-hidden">
+  <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-100/50 rounded-full blur-3xl"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="bg-[#001B48] rounded-[4rem] p-8 md:p-20 overflow-hidden relative shadow-2xl">
+      
+      <div class="absolute top-0 right-0 w-full h-full opacity-10">
+        <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <defs>
+            <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+              <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="100" height="100" fill="url(#grid)" />
+        </svg>
+      </div>
+
+      <div class="relative z-10 grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+        
+        <div class="lg:col-span-3 space-y-8 text-center lg:text-left">
+          <h2 class="text-blue-400 text-xs font-black tracking-[0.4em] uppercase">The NanoCare Vision</h2>
+          <h3 class="text-4xl md:text-6xl font-black text-white leading-[1.1]">
+            If we take care of your cells, <br>
+            <span class="text-blue-400 underline decoration-blue-500/30">we take care of your life.</span>
+          </h3>
+          <p class="text-blue-100/70 text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium">
+            NanoCare was born from a simple but powerful question: What if we could care for people’s health starting from the tiniest building blocks of the body – not just on the surface?
+          </p>
+          
+          <div class="flex flex-wrap justify-center lg:justify-start gap-4">
+            <span class="px-6 py-3 bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl text-white text-sm font-bold uppercase tracking-widest">Egyptian Roots</span>
+            <span class="px-6 py-3 bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl text-white text-sm font-bold uppercase tracking-widest">Global Standards</span>
+          </div>
+        </div>
+
+        <div class="lg:col-span-2 space-y-4">
+          <div class="bg-white/5 backdrop-blur-sm p-6 rounded-[2rem] border border-white/10 hover:bg-white/10 transition-all">
+            <h4 class="text-white font-black uppercase text-sm mb-2">Science-Backed Innovation</h4>
+            <p class="text-blue-100/50 text-xs leading-relaxed">Every formula is based on solid scientific research to deliver measurable benefits.</p>
+          </div>
+          <div class="bg-white/5 backdrop-blur-sm p-6 rounded-[2rem] border border-white/10 hover:bg-white/10 transition-all">
+            <h4 class="text-white font-black uppercase text-sm mb-2">Empowering Proactive Health</h4>
+            <p class="text-blue-100/50 text-xs leading-relaxed">We help you take control of your wellbeing, longevity, and daily performance.</p>
+          </div>
+          <div class="bg-white/5 backdrop-blur-sm p-6 rounded-[2rem] border border-white/10 hover:bg-white/10 transition-all">
+            <h4 class="text-white font-black uppercase text-sm mb-2">Trust & Transparency</h4>
+            <p class="text-blue-100/50 text-xs leading-relaxed">No empty promises. Just honest ingredients and advanced delivery systems.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
