@@ -1,53 +1,49 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule],
   templateUrl: './home.component.html',
+  imports: [CommonModule, RouterModule],
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  // جرب المسارات دي، من غير سلاش في الأول خالص لو الصور جوه public/coverImages
-  public heroImages: any[] = [
+  particles = Array.from({ length: 20 }, (_, i) => ({
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    delay: Math.random() * 5
+  }));
+
+  heroImages = [
     'assets/coverImages/2.png',
     'assets/coverImages/nanocareBottel.jpeg',
-    'assets/coverImages/Post 5.jpg'
+    'assets/coverImages/Post 5.jpg',
+    'assets/coverImages/supplement-bottle.png'
   ];
-  
-  public currentIndex: number = 0;
-  private intervalId: any;
-  public isAutoPlaying: boolean = true;
+
+  currentIndex = 0;
+  isAutoPlaying = true;
+  autoPlayInterval: any;
 
   ngOnInit() {
     this.startAutoPlay();
   }
 
+  ngOnDestroy() {
+    this.stopAutoPlay();
+  }
+
   startAutoPlay() {
-    if (this.isAutoPlaying) {
-      this.intervalId = setInterval(() => {
-        this.nextSlide();
-      }, 3000);
-    }
+    this.autoPlayInterval = setInterval(() => {
+      this.nextSlide();
+    }, 5000);
   }
 
   stopAutoPlay() {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-      this.intervalId = null;
+    if (this.autoPlayInterval) {
+      clearInterval(this.autoPlayInterval);
     }
-  }
-
-  nextSlide() {
-    this.currentIndex = (this.currentIndex + 1) % this.heroImages.length;
-  }
-
-  prevSlide() {
-    this.currentIndex = this.currentIndex === 0 ? this.heroImages.length - 1 : this.currentIndex - 1;
-  }
-
-  goToSlide(index: number) {
-    this.currentIndex = index;
   }
 
   toggleAutoPlay() {
@@ -59,7 +55,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
-    this.stopAutoPlay();
+  nextSlide() {
+    this.currentIndex = (this.currentIndex + 1) % this.heroImages.length;
+  }
+
+  prevSlide() {
+    this.currentIndex = (this.currentIndex - 1 + this.heroImages.length) % this.heroImages.length;
+  }
+
+  goToSlide(index: number) {
+    this.currentIndex = index;
   }
 }
