@@ -13,6 +13,8 @@ export class ProductdetailsComponent implements OnInit {
   product: any = null;
   quantity: number = 1;
   
+
+  
   // Mock product data - In real app, fetch from service
   allProducts = [
     {
@@ -69,10 +71,20 @@ export class ProductdetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const productId = Number(this.route.snapshot.paramMap.get('id'));
-    this.product = this.allProducts.find(p => p.id === productId);
-    this.quantity = 1;
-  }
+  // بنراقب الـ params عشان لو اتغيرت والصفحة مفتوحة يحس بالتغيير
+  this.route.params.subscribe(params => {
+    const id = +params['id'];
+    if (id) {
+      this.loadProduct(id);
+    }
+  });
+}
+
+loadProduct(id: number) {
+  this.product = this.allProducts.find(p => p.id === id);
+  this.quantity = 1; // بنصفر الكمية مع كل منتج جديد
+  window.scrollTo({ top: 0, behavior: 'smooth' }); // بنطلع لفوق بنعومة لما يفتح منتج جديد
+}
 
   getAdditionalImages(productId: number): string[] {
     // Return additional images for the product

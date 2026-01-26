@@ -260,26 +260,31 @@
       </div>
       
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div *ngFor="let related of getRelatedProducts(product.id)" 
-             class="group bg-white rounded-2xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-xl transition-all duration-300">
-          <div class="h-40 flex items-center justify-center mb-4">
-            <img [src]="related.image" 
-                 [alt]="related.name" 
-                 class="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-500">
-          </div>
-          <h4 class="font-bold text-slate-900 mb-1">{{related.name}}</h4>
-          <p class="text-sm text-slate-600 mb-3">{{related.category}}</p>
-          <div class="flex items-center justify-between">
-            <span class="text-xl font-black text-blue-600">{{related.price}} EGP</span>
-            <button (click)="addToCart(related)" 
-                    class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
+  <div *ngFor="let related of getRelatedProducts(product.id)" 
+       [routerLink]="['/product', related.id]"
+       (click)="loadProduct(related.id)"
+       class="group bg-white rounded-2xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-xl transition-all duration-300 cursor-pointer">
+    
+    <div class="h-40 flex items-center justify-center mb-4">
+      <img [src]="related.image" 
+           [alt]="related.name" 
+           class="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-500">
+    </div>
+    
+    <h4 class="font-bold text-slate-900 mb-1">{{related.name}}</h4>
+    <p class="text-sm text-slate-600 mb-3">{{related.category}}</p>
+    
+    <div class="flex items-center justify-between">
+      <span class="text-xl font-black text-blue-600">{{related.price}} EGP</span>
+      <button (click)="$event.stopPropagation(); addToCart(related)" 
+              class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
     </div>
   </div>
 
