@@ -63,14 +63,43 @@
       <!-- Right Side Actions -->
       <div class="flex items-center gap-4">
         <!-- Search -->
-        <div class="hidden lg:block relative">
+        <div class="hidden lg:block relative search-container">
           <div class="relative">
-            <input type="text" placeholder="Search products..." 
+            <input type="text" 
+                   [(ngModel)]="searchQuery"
+                   (input)="onSearchInput()"
+                   (focus)="onSearchFocus()"
+                   (blur)="onSearchBlur()"
+                   placeholder="Search products..." 
                    class="pl-12 pr-4 py-3 w-64 rounded-2xl bg-gray-100/80 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:bg-white transition-all duration-300"
                    [class.w-72]="isSearchFocused">
             <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
             </svg>
+            
+            <!-- Search Results Dropdown -->
+            <div *ngIf="searchResults.length > 0 && isSearchFocused" 
+                 class="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-2xl border border-gray-200 max-h-96 overflow-y-auto z-50">
+              <div *ngFor="let product of searchResults" 
+                   (click)="navigateToProduct(product.id)"
+                   class="flex items-center gap-3 p-3 hover:bg-blue-50 transition-colors cursor-pointer border-b border-gray-100 last:border-b-0">
+                <img [src]="product.image" [alt]="product.name" class="w-12 h-12 object-cover rounded-lg">
+                <div class="flex-1 min-w-0">
+                  <h4 class="text-sm font-semibold text-gray-900 truncate">{{ product.name }}</h4>
+                  <p class="text-xs text-gray-500 truncate">{{ product.category }}</p>
+                </div>
+                <div class="text-sm font-bold text-blue-600">{{ product.price | number:'1.0-0' }} EGP</div>
+              </div>
+            </div>
+            
+            <!-- No Results Message -->
+            <div *ngIf="searchQuery.trim() && searchResults.length === 0 && isSearchFocused"
+                 class="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-2xl border border-gray-200 p-6 text-center z-50">
+              <svg class="w-12 h-12 text-gray-300 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <p class="text-gray-500 text-sm">No products found for "{{ searchQuery }}"</p>
+            </div>
           </div>
         </div>
 
@@ -143,13 +172,39 @@
     </div>
 
     <!-- Search Mobile -->
-    <div class="relative p-4 bg-white/80">
+    <div class="relative p-4 bg-white/80 search-container">
       <div class="relative">
-        <input type="text" placeholder="Search products..." 
+        <input type="text" 
+               [(ngModel)]="searchQuery"
+               (input)="onSearchInput()"
+               (focus)="onSearchFocus()"
+               (blur)="onSearchBlur()"
+               placeholder="Search products..." 
                class="w-full pl-12 pr-4 py-3.5 rounded-2xl bg-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:bg-white transition-all duration-300">
         <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
         </svg>
+        
+        <!-- Mobile Search Results -->
+        <div *ngIf="searchResults.length > 0 && isSearchFocused" 
+             class="absolute top-full left-4 right-4 mt-2 bg-white rounded-2xl shadow-2xl border border-gray-200 max-h-60 overflow-y-auto z-50">
+          <div *ngFor="let product of searchResults" 
+               (click)="navigateToProduct(product.id)"
+               class="flex items-center gap-3 p-3 hover:bg-blue-50 transition-colors cursor-pointer border-b border-gray-100 last:border-b-0">
+            <img [src]="product.image" [alt]="product.name" class="w-10 h-10 object-cover rounded-lg">
+            <div class="flex-1 min-w-0">
+              <h4 class="text-sm font-semibold text-gray-900 truncate">{{ product.name }}</h4>
+              <p class="text-xs text-gray-500 truncate">{{ product.category }}</p>
+            </div>
+            <div class="text-sm font-bold text-blue-600">{{ product.price | number:'1.0-0' }} EGP</div>
+          </div>
+        </div>
+        
+        <!-- Mobile No Results Message -->
+        <div *ngIf="searchQuery.trim() && searchResults.length === 0 && isSearchFocused"
+             class="absolute top-full left-4 right-4 mt-2 bg-white rounded-2xl shadow-2xl border border-gray-200 p-4 text-center z-50">
+          <p class="text-gray-500 text-xs">No products found</p>
+        </div>
       </div>
     </div>
 
