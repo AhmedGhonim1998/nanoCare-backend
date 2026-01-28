@@ -31,12 +31,11 @@
 
           <!-- Favorite Button -->
           <button (click)="toggleFavorite(product)"
-                  class="absolute top-6 right-6 z-20 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center border border-slate-200 transition-all shadow-sm"
-                  [class]="isFavorite(product.id) ? 'text-red-500 bg-red-50 border-red-200' : 'text-slate-600 hover:text-red-500 hover:bg-red-50 hover:border-red-200'">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path [attr.d]="isFavorite(product.id) ? 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z' : 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z'"
-                    [attr.fill]="isFavorite(product.id) ? 'currentColor' : 'none'"
-                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                  type="button"
+                  class="absolute top-6 right-6 z-20 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center border transition-all shadow-sm"
+                  [ngClass]="isFavorite(product.id) ? 'text-red-500 bg-red-50 border-red-200' : 'text-slate-600 hover:text-red-500 hover:bg-red-50 hover:border-red-200 border-slate-200'">
+            <svg class="w-5 h-5 transition-all" [attr.fill]="isFavorite(product.id) ? 'currentColor' : 'none'" stroke="currentColor" viewBox="0 0 24 24">
+              <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
             </svg>
           </button>
 

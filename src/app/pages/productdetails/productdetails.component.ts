@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -118,7 +119,8 @@ export class ProductdetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cartService: CartService
   ) {}
 
   ngOnInit() {
@@ -130,11 +132,10 @@ export class ProductdetailsComponent implements OnInit {
       }
     });
     
-    // Load favorites from localStorage
-    const storedFavorites = localStorage.getItem('favoriteProducts');
-    if (storedFavorites) {
-      this.favoriteProducts = JSON.parse(storedFavorites);
-    }
+    // Load favorites from cart service
+    this.cartService.getFavorites().subscribe(favorites => {
+      this.favoriteProducts = favorites;
+    });
   }
 
   loadProduct(id: number) {
@@ -149,18 +150,21 @@ export class ProductdetailsComponent implements OnInit {
 
   // Toggle favorite status
   toggleFavorite(product: any) {
-    const index = this.favoriteProducts.indexOf(product.id);
-    if (index > -1) {
-      this.favoriteProducts.splice(index, 1);
+    const isFav = this.cartService.isFavorite(product.id);
+    
+    if (isFav) {
+      // Remove from favorites and cart
+      this.cartService.removeFavorite(product.id);
+      this.cartService.removeFromCart(product.id);
     } else {
-      this.favoriteProducts.push(product.id);
+      // Add to favorites and cart with current quantity
+      this.cartService.addFavorite(product.id);
+      this.cartService.addToCart(product, this.quantity);
     }
-    // Save to localStorage
-    localStorage.setItem('favoriteProducts', JSON.stringify(this.favoriteProducts));
   }
 
   isFavorite(productId: number): boolean {
-    return this.favoriteProducts.includes(productId);
+    return this.cartService.isFavorite(productId);
   }
 
   // Get all images including main and additional ones

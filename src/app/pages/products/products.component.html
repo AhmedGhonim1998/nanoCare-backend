@@ -88,12 +88,15 @@
               
               <!-- Action Buttons -->
               <div class="flex gap-2">
-                <button (click)="$event.stopPropagation()" class="w-12 h-12 bg-white border border-gray-200 rounded-xl flex items-center justify-center text-gray-700 hover:text-blue-600 hover:border-blue-300 hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 group/btn">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button (click)="toggleFavorite(product, $event)" 
+                        type="button"
+                        [ngClass]="isFavorite(product.id) ? 'bg-red-50 border-red-200 text-red-500' : 'bg-white border-gray-200 text-gray-700 hover:text-red-500 hover:border-red-300 hover:bg-red-50'"
+                        class="w-12 h-12 border rounded-xl flex items-center justify-center hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 group/btn">
+                  <svg class="w-5 h-5 transition-all" [attr.fill]="isFavorite(product.id) ? 'currentColor' : 'none'" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
                   </svg>
                   <span class="absolute -top-8 bg-gray-900 text-white text-xs py-1 px-2 rounded opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-                    Add to Wishlist
+                    {{ isFavorite(product.id) ? 'Remove from Wishlist' : 'Add to Wishlist' }}
                   </span>
                 </button>
                 

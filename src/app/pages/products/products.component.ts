@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ProductsService } from '../../products.service';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-products',
@@ -15,12 +16,18 @@ export class ProductsComponent implements OnInit {
 
   products: any[] = [];
   filteredProducts: any[] = [];
+  favoriteProducts: number[] = [];
 
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: ProductsService, private cartService: CartService) {}
 
   ngOnInit() {
     this.products = this.productsService.getProducts();
     this.filteredProducts = [...this.products];
+    
+    // Subscribe to favorites from cart service
+    this.cartService.getFavorites().subscribe(favorites => {
+      this.favoriteProducts = favorites;
+    });
   }
 
   selectCategory(category: string) {
@@ -76,10 +83,24 @@ export class ProductsComponent implements OnInit {
     return Array(5).fill(0).map((_, i) => i < Math.floor(rating) ? 1 : 0);
   }
 
-  // Optional: Function to generate random rating for demo purposes
-  // You can remove this if you have actual ratings in your data
-  getRandomRating(): number {
-    return Math.floor(Math.random() * (50 - 10 + 1) + 10) / 10;
+  // Heart button methods
+  toggleFavorite(product: any, event: Event) {
+    event.stopPropagation();
+    const isFav = this.cartService.isFavorite(product.id);
+    
+    if (isFav) {
+      // Remove from favorites and cart
+      this.cartService.removeFavorite(product.id);
+      this.cartService.removeFromCart(product.id);
+    } else {
+      // Add to favorites and cart
+      this.cartService.addFavorite(product.id);
+      this.cartService.addToCart(product, 1);
+    }
+  }
+
+  isFavorite(productId: number): boolean {
+    return this.cartService.isFavorite(productId);
   }
 
   // Optional: Function to generate random review count

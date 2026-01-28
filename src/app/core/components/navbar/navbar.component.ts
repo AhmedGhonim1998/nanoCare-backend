@@ -3,6 +3,7 @@ import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
+import { CartService } from '../../../services/cart.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -13,12 +14,17 @@ export class NavbarComponent implements OnInit , OnDestroy {
   isScrolled = false;
   isMenuOpen = false;
   isSearchFocused = false;
+  cartItemCount = 0;
   private routerSub?: Subscription; // لتنظيف الذاكرة
   
-  constructor(private router: Router) {}
+  constructor(private router: Router, private cartService: CartService) {}
 
   ngOnInit() {
     this.checkScroll();
+    // Subscribe to cart items to update the count
+    this.cartService.getCartItems().subscribe(items => {
+      this.cartItemCount = items.length;
+    });
     // Prevent scroll when modal is open
     this.router.events.subscribe(() => {
       this.closeMenu();
